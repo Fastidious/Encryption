@@ -1,0 +1,36 @@
+
+#!/bin/bash
+if [ -z "$1" ] && [ -z "$2" ]; then
+echo "+-------------+"
+echo "| Encrypt 1.0 |"
+echo "+-------------+"
+echo "Symmetrically encrypts a file."
+echo ""
+echo "You most enter a parameter, and the file to encrypt."
+echo ""
+echo "Example:"
+echo ""
+echo "encrypt -n file-to-encrypt" 
+echo ""
+echo "Additional parameters:"
+echo ""
+echo "-a    Use this to encrypt to an ASCII armored output."
+echo "-n    Use this to encrypt normally (binary format)."
+echo ""
+else 
+	if [[ "$1" = "-n" ]]; then
+	echo "Encrypting normally."
+	sleep 3
+	gpg -c -z 9 --require-secmem --cipher-algo AES256 --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --digest-algo SHA512 --s2k-mode 3 --s2k-count 65000000 --compress-algo BZIP2 --bzip2-compress-level 9 "$2"
+
+	# ASCII Armored output
+	elif [[ "$1" = "-a" ]]; then
+	echo "Encrypting to ASCII."
+	sleep 3
+	gpg -c -z 9 --require-secmem --cipher-algo AES256 --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --digest-algo SHA512 --s2k-mode 3 --s2k-count 65000000 --armor --compress-algo BZIP2 --bzip2-compress-level 9 "$2"
+	else 
+		echo ""
+		echo "Wrong parameter. Use encrypt without parameters for help."
+		echo ""
+	fi
+fi

@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ -z "$1" ] && [ -z "$2" ]; then
+echo "+---------------+"
+echo "| Cryptcopy 1.0 |"
+echo "+---------------+"
+echo "Symmetrically encrypts a file and moves it to a location of your choice."
+echo ""
+echo "You most enter two parameters, file to encrypt and full path to destination."
+echo ""
+echo "Example:"
+echo ""
+echo "cryptcopy file-to-encrypt destination-location" 
+echo ""
+else 
+gpg -c -z 9 --require-secmem --cipher-algo AES256 --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --digest-algo SHA512 --s2k-mode 3 --s2k-count 65000000 --compress-algo BZIP2 --bzip2-compress-level 9 "$1"  
+mv -fv "$1.gpg" "$2"
+echo "$2/$1.gpg" | pbcopy
+echo "Encrypted file and its path copied to clipboard."
+fi

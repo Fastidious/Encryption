@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+echo "+-------------+"
+echo "| Decrypt 1.0 |"
+echo "+-------------+"
+echo "Decrypts a file symmetrically encrypted."
+echo ""
+echo "You most enter a parameter, the file to decrypt. Example:"
+echo ""
+echo "decrypt file-to-decrypt" 
+echo ""
+else
+	gpg "$1"
+fi
